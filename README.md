@@ -1,10 +1,18 @@
 ## Notes on React internals
 
-React programmes output DOM tree.
+React programmes output virtual DOM tree.
 
-ReactDOM.render builds a virtual DOM tree that describes the current state of the DOM.
+Think of virtual DOM is an object, it is.
 
-Virtual DOM is an object.
+ReactDOM.render builds a virtual DOM tree that will determine the next state of the DOM.
+
+You can read ReactDOM.render(<App />, domContainer) as: “React, make the domContainer DOM tree match my virtual DOM object (App).”
+
+React's first job is to build the virtual DOM tree.
+
+React's second job is to make the real DOM tree match the provided virtual DOM tree. The process of figuring out the set of changes that are required to get the real DOM tree to match the new virtual DOM tree is called reconciliation.
+
+Simplified virtual DOM tree:
 
 ```js
 {
@@ -39,12 +47,15 @@ React does this efficiently by relying on the fact that old virtual DOM tree and
 {
   type: 'dialog',
   props: {
-    children: [{
-      type: ‘null’,
-    }, {
-      type: 'button',
-      props: { className: 'red' }
-    }]
+    children: [
+      {
+        type: ‘null’,
+      },
+      {
+        type: 'button',
+        props: { className: 'red' }
+      }
+     ]
   }
 }
 
@@ -52,13 +63,16 @@ React does this efficiently by relying on the fact that old virtual DOM tree and
 {
   type: 'dialog',
   props: {
-    children: [{
-      type: 'button',
-      props: { className: 'blue' }
-    }, {
-      type: 'button',
-      props: { className: 'red' }
-    }]
+    children: [
+      {
+        type: 'button',
+        props: { className: 'blue' }
+      }, 
+      {
+        type: 'button',
+        props: { className: 'red' }
+      },
+    ]
   }
 }
 ```
