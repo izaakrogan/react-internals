@@ -2,11 +2,9 @@
 
 React programmes output virtual DOM tree.
 
-Think of virtual DOM as an object; it is.
+Think of virtual DOM as a big object that describes what we want to display in the real DOM.
 
-ReactDOM.render builds a virtual DOM tree that is used to determine the next state of the DOM.
-
-You can read ReactDOM.render(<App />, domContainer) as: "React, make the domContainer DOM tree match my virtual DOM object (App)."
+You can read ReactDOM.render(<App />, domContainer) as: "React, take my App and use it to create a big virtual DOM object. Next, make the domContainer DOM tree match my virtual DOM object."
 
 React's first job is to build the virtual DOM tree.
 
@@ -16,7 +14,7 @@ Simplified virtual DOM tree:
 
 ```js
 {
-  type: 'dialog',
+  type: 'div',
   props: {
     children: [{
       type: 'button',
